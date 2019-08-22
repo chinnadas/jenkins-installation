@@ -1,0 +1,46 @@
+Jenkins installation in ubuntu 18.04
+====================================
+
+https://linuxize.com/post/how-to-install-jenkins-on-ubuntu-18-04/
+
+adduser jenkins
+visudo 
+# Jenkins ALL=(ALL:ALL) NOPASSWD:ALL
+vi /etc/ssh/sshd_config
+# passwd authentication:yes
+
+service sshd restart
+ssh-keygen
+ssh-copy-id jenkins@localhost
+sudo usermod -aG root jenkins
+
+sudo apt-get update
+sudo apt install openjdk-8-jdk -y
+
+
+####http://jenkins.io ##ubuntu
+
+sudo apt-get update
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+sudo apt-get update
+sudo apt-get install jenkins
+systemctl start jenkins
+systemctl enable jenkins
+systemctl status jenkins
+
+vi ~/.profile
+#PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64"
+export PATH="$PATH:$JAVA_HOME/bin"
+export M2_HOME="/usr/share/maven"
+export PATH="${M2_HOME}/bin:${PATH}"
+#export MAVEN_HOME="/usr/share/maven"
+#export PATH="/usr/bin:/bin"
+
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+
